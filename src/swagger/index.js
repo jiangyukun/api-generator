@@ -48,4 +48,4 @@ function generateCode(distPath) {
 
 module.exports = generateCode
 
-generateCode(path.join(__dirname, '../dist'))
+generateCode(path.join(__dirname, '../../dist'))
