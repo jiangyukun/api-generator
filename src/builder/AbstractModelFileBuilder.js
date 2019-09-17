@@ -1,6 +1,6 @@
 let util = require('../util')
 
-const responseClassIgnoreList = ['ResponseStateEnum', 'Int64', 'Int32', 'Boolean', 'String', 'Decimal', 'Object', 'System.String', 'System.Int64']
+const responseClassIgnoreList = ['int']
 
 class AbstractModelFileBuilder {
     constructor(apiUrls, paths, definitions) {

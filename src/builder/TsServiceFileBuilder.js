@@ -37,10 +37,7 @@ class NodeServiceFileBuilder {
             let responseClassName = ''
             if (responses['200']) {
                 responseClassName = util.getResponseClassName(responses['200'].schema, this.definitions)
-                if (responseClassName === 'SchoolPal.Marketing.Pinke.Component.Commons.Result') {
-                    continue
-                }
-                if (responseClassName === 'System.String' || responseClassName === 'System.Int64' || responseClassName === 'System.Boolean') {
+                if (responseClassName === 'int' || responseClassName === 'integer' || responseClassName === 'string' || responseClassName === 'boolean') {
                     continue
                 }
                 if (!this.definitions[responseClassName]) {
@@ -55,8 +52,8 @@ class NodeServiceFileBuilder {
             }
         }
         return `
-import request1 from '../utils/request1'
-import {Data, PageList} from './CommonInterface'
+import {_get, _post, _put, _delete} from '../core/http'
+import {Data, List} from '../interfaces/CommonInterface'
 import {${typeNameList.join(',\n')}
 } from '${this.interfacePath}'
         `

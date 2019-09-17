@@ -1,4 +1,3 @@
-
 function firstLetterLowerCase(str) {
     if (!str) return str
 
@@ -12,6 +11,9 @@ function getResponseClassName(schema, definitions) {
     if (type === 'boolean') {
         return ''
     }
+    if (type == 'integer') {
+        return 'integer'
+    }
     if (type === 'array') {
         if (schema.items.$ref) {
             ref = schema.items.$ref
@@ -24,9 +26,6 @@ function getResponseClassName(schema, definitions) {
         }
     } else {
         ref = schema.$ref
-    }
-    if (ref === '#/definitions/SchoolPal.Marketing.Pinke.Component.Commons.Result[SchoolPal.Marketing.Pinke.Web.Helper.Amap.Model.District1[]]') {
-        return 'SchoolPal.Marketing.Pinke.Web.Helper.Amap.Model.District1'
     }
     let responseClassName = getClassName(ref)
 
@@ -45,21 +44,26 @@ function getClassName(str) {
         return ''
     }
     let responseClassName = getContent(str)
+
     if (!responseClassName) {
         return ''
     }
-    while (responseClassName.indexOf('[') !== -1) {
+    while (responseClassName.indexOf('«') !== -1) {
         responseClassName = getContent(responseClassName)
     }
+    // console.log(`${str} ==>> ${responseClassName}`)
     return responseClassName
 }
 
 function getContent(str) {
-    if (str.indexOf('[') === -1) {
-        return str.substring(14)
+    if (str.indexOf('«') == -1) {
+        if (str.indexOf('#') != -1) {
+            return str.substr(14)
+        }
+        return str
     }
-    let left = str.indexOf('[')
-    let right = str.lastIndexOf(']')
+    let left = str.indexOf('«')
+    let right = str.lastIndexOf('»')
     let typeStr = str.substring(left + 1, right)
     let index = typeStr.indexOf(',')
     return typeStr.substring(index + 1)

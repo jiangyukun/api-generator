@@ -8,7 +8,7 @@ let TypescriptInterfaceFileBuilder = require('./builder/TypescriptInterfaceFileB
 let util = require('./util')
 
 function generateCode(distPath) {
-    axios.get('http://10.88.30.128:8083/swagger/docs/v1').then(res => {
+    axios.get('http://localhost:8000/v2/api-docs').then(res => {
         let swaggerJson = res.data
         const paths = swaggerJson.paths
         const definitions = swaggerJson.definitions
@@ -18,7 +18,7 @@ function generateCode(distPath) {
         let serviceSet = new Set()
         for (let key of apiPaths) {
             let category = key.split('/')
-            serviceSet.add(category[2])
+            serviceSet.add(category[1])
         }
 
         for (let service of serviceSet) {
@@ -28,7 +28,7 @@ function generateCode(distPath) {
             autoGenerator({
                 filename: `${service}`,
                 filter(apiPath) {
-                    return apiPath.indexOf(`/${service}/`) !== -1 && apiPath.indexOf('/api/Common/UploadImage') === -1 && apiPath.indexOf('/api/Common/Test') === -1
+                    return apiPath.indexOf(`/${service}`) !== -1
                 }
             })
         }
@@ -50,3 +50,5 @@ function generateCode(distPath) {
 }
 
 module.exports = generateCode
+
+generateCode(path.join(__dirname, '../dist'))
