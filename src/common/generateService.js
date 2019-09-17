@@ -16,47 +16,58 @@ module.exports = function (url, httpType, apiInfo, definitions) {
         if ($ref.indexOf('List«') != -1) {
             responseType = `Promise<${responseShortClassName}[]>`
         } else {
-            if (responseClassName === 'System.String') {
-                responseShortClassName = 'string'
-            } else if (responseClassName === 'integer') {
+            if (responseClassName === 'integer') {
                 responseShortClassName = 'number'
-            } else if (responseClassName === 'System.Boolean') {
-                responseShortClassName = 'boolean'
             } else if (!definitions[responseClassName]) {
                 responseShortClassName = 'number'
             }
             responseType = `Promise<${responseShortClassName}>`
         }
-
-
     }
 
     let functionParam = []
     let requestParam = []
-    if (parameters && parameters.length === 1 && parameters[0].in === 'body') {
-        let param = parameters[0]
-
-        let responseClassName = util.getResponseClassName(param.schema, definitions)
-        let shortNameList = responseClassName.split('.')
-        let shortName = shortNameList[shortNameList.length - 1]
-        functionParam.push({
-            name: param.name,
-            type: shortName
-        })
-        requestParam.push(param.name)
+    if (parameters && parameters.length > 0) {
+        for (let param of parameters) {
+            if (param.in === 'body') {
+                let responseClassName = util.getResponseClassName(param.schema, definitions)
+                let shortNameList = responseClassName.split('.')
+                let shortName = shortNameList[shortNameList.length - 1]
+                functionParam.push({
+                    name: param.name,
+                    type: shortName
+                })
+                requestParam.push(param.name)
+            }
+            if (param.in === 'query') {
+                functionParam.push({
+                    name: 'params',
+                    type: `{${param.name}: ${param.type}}`
+                })
+                requestParam.push('params')
+            }
+            if (param.in == 'path') {
+                functionParam.push({
+                    name: param.name,
+                    type: util.getPathType(param.type)
+                })
+                requestParam.push(param.name)
+            }
+        }
     }
 
     if (functionName.indexOf('{') != -1) {
         functionName = functionName.replace('{', '').replace('}', '')
         functionName = 'by' + functionName.replace(functionName[0], functionName[0].toUpperCase())
     }
+    let restUrl = url.replace('{', '${')
 
     let apiStr = `
 /**
  * ${apiInfo.summary}
  */
-export function ${functionName}(${functionParam.map(p => `${p.name}: ${p.type}`).join(', ')}): ${responseType} {
-  return _${httpType}('${url}'${requestParam.length > 0 ? ', ' : ''}${requestParam.join(', ')})
+export function ${functionName}Api(${functionParam.map(p => `${p.name}: ${p.type}`).join(', ')}): ${responseType} {
+  return _${httpType}(\`${restUrl}\`${requestParam.length > 0 ? ', ' : ''}${requestParam.join(', ')})
 }
 `
     return apiStr

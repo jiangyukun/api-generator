@@ -22,9 +22,6 @@ function generateCode(distPath) {
         }
 
         for (let service of serviceSet) {
-            if (service === 'Test' || service === 'SchoolPalPay') {
-                continue
-            }
             autoGenerator({
                 filename: `${service}`,
                 filter(apiPath) {

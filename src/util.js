@@ -69,6 +69,13 @@ function getContent(str) {
     return typeStr.substring(index + 1)
 }
 
+function getPathType(type) {
+    if (type == 'integer') {
+        return 'number'
+    }
+    return type
+}
+
 module.exports = {
-    getClassName, firstLetterLowerCase, getResponseClassName
+    getClassName, firstLetterLowerCase, getResponseClassName, getPathType
 }
