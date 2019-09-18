@@ -33,13 +33,13 @@ export function autosaveApi(model: TempConfigFileModel): Promise<number> {
 /**
  * 查看本地配置文件内容
  */
-export function getFileIdApi(fileId: number): Promise<ConfigFileModel> {
+export function fetchFilesListApi(fileId: number): Promise<ConfigFileModel> {
   return _get(`/files/${fileId}`, fileId)
 }
 
 /**
  * 删除本地配置文件
  */
-export function deleteFileIdApi(fileId: number): Promise<number> {
+export function deleteFilesApi(fileId: number): Promise<number> {
   return _delete(`/files/${fileId}`, fileId)
 }

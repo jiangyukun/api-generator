@@ -2,7 +2,13 @@ let util = require('../util')
 
 module.exports = function (url, httpType, apiInfo, definitions, isFunctionNameRepeat) {
     let urlParts = url.split('/')
-    let functionName = util.firstLetterLowerCase(urlParts[urlParts.length - 1])
+    let functionName = null
+    if (urlParts[urlParts.length - 1].indexOf('{') != -1) {
+        functionName = util.firstLetterLowerCase(urlParts[urlParts.length - 2])
+    } else {
+        functionName = util.firstLetterLowerCase(urlParts[urlParts.length - 1])
+    }
+
     let parameters = apiInfo.parameters
     let responses = apiInfo.responses
     let responseClassName = '', responseShortClassName = ''
@@ -59,17 +65,18 @@ module.exports = function (url, httpType, apiInfo, definitions, isFunctionNameRe
     if (functionName.indexOf('{') != -1) {
         functionName = functionName.replace('{', '').replace('}', '')
     }
+    let functionNameWithUpLetter = functionName.replace(functionName[0], functionName[0].toUpperCase())
     if (isFunctionNameRepeat) {
-        let functionNameWithUpLetter = functionName.replace(functionName[0], functionName[0].toUpperCase())
         if (httpType == 'get') {
-            functionName = 'get' + functionNameWithUpLetter
+            functionName = 'fetch' + functionNameWithUpLetter + 'List'
         } else if (httpType == 'post') {
             functionName = 'add' + functionNameWithUpLetter
         } else if (httpType == 'put') {
             functionName = 'update' + functionNameWithUpLetter
-        } else if (httpType == 'delete') {
-            functionName = 'delete' + functionNameWithUpLetter
         }
+    }
+    if (httpType == 'delete') {
+        functionName = 'delete' + functionNameWithUpLetter
     }
     let restUrl = url.replace('{', '${')
 

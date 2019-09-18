@@ -5,14 +5,14 @@
 
 import {_get, _post, _put, _delete} from '../core/http'
 import {Data, List} from '../interfaces/CommonInterface'
-import {ProjectModel,
-ProjectConfigFileVo
+import {ProjectConfigFileVo,
+ProjectModel
 } from './types/projectType'
         
 /**
  * 查询所有项目
  */
-export function getProjectApi(): Promise<ProjectModel[]> {
+export function fetchProjectListApi(): Promise<ProjectConfigFileVo[]> {
   return _get(`/project`)
 }
 
@@ -33,13 +33,13 @@ export function updateProjectApi(model: ProjectModel): Promise<number> {
 /**
  * 查询项目结构
  */
-export function nameApi(name: string): Promise<ProjectConfigFileVo> {
+export function projectApi(name: string): Promise<ProjectConfigFileVo> {
   return _get(`/project/${name}`, name)
 }
 
 /**
  * 删除项目结构
  */
-export function projectIdApi(projectId: number): Promise<number> {
+export function deleteProjectApi(projectId: number): Promise<number> {
   return _delete(`/project/${projectId}`, projectId)
 }

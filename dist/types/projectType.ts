@@ -6,48 +6,35 @@
 /**
  * 
  */
-export interface ProjectModel {
-    address?: string // 
-description?: string // 
-id?: number // 
-name?: string // 
-number?: string // 
-type?: string // 
-
-}
-
-/**
- * 
- */
-export interface ProjectModel {
-    address?: string // 
-description?: string // 
-id?: number // 
-name?: string // 
-number?: string // 
-type?: string // 
-
-}
-
-/**
- * 
- */
-export interface ProjectModel {
-    address?: string // 
-description?: string // 
-id?: number // 
-name?: string // 
-number?: string // 
-type?: string // 
-
-}
-
-/**
- * 
- */
 export interface ProjectConfigFileVo {
     address?: string // 
 configFileVos?: ConfigFileVo[] // 
+description?: string // 
+id?: number // 
+name?: string // 
+number?: string // 
+type?: string // 
+
+}
+
+/**
+ * 
+ */
+export interface ProjectModel {
+    address?: string // 
+description?: string // 
+id?: number // 
+name?: string // 
+number?: string // 
+type?: string // 
+
+}
+
+/**
+ * 
+ */
+export interface ProjectModel {
+    address?: string // 
 description?: string // 
 id?: number // 
 name?: string // 

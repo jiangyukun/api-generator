@@ -18,6 +18,6 @@ export function peripheralsApi(): Promise<PeripheralModel[]> {
 /**
  * 查看外设模型库详细内容
  */
-export function peripheral_idApi(peripheral_id: number): Promise<PeripheralModel> {
+export function peripheralsApi(peripheral_id: number): Promise<PeripheralModel> {
   return _get(`/peripherals/${peripheral_id}`, peripheral_id)
 }
