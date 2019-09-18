@@ -17,37 +17,39 @@ class NodeServiceFileBuilder {
             let functionName = util.firstLetterLowerCase(urlParts[urlParts.length - 1])
             this.exportFunctionList.push(functionName)
             let apiItem = this.paths[url]
-            let httpType = Object.getOwnPropertyNames(apiItem)[0]
-            let apiInfo = apiItem[httpType]
-            if (apiInfo.deprecated === true) {
-                continue
-            }
-            let parameters = apiInfo.parameters
-            if (parameters && parameters.length === 1 && parameters[0].in === 'body') {
-                let param = parameters[0]
+            let httpTypes = Object.getOwnPropertyNames(apiItem)
+            for (let httpType of httpTypes) {
+                let apiInfo = apiItem[httpType]
+                if (apiInfo.deprecated === true) {
+                    continue
+                }
+                let parameters = apiInfo.parameters
+                if (parameters && parameters.length === 1 && parameters[0].in === 'body') {
+                    let param = parameters[0]
 
-                let requestClassName = util.getResponseClassName(param.schema, this.definitions)
-                let shortNameList = requestClassName.split('.')
-                let shortName = shortNameList[shortNameList.length - 1]
-                if (typeNameList.indexOf(shortName) === -1) {
-                    typeNameList.push(shortName)
+                    let requestClassName = util.getResponseClassName(param.schema, this.definitions)
+                    let shortNameList = requestClassName.split('.')
+                    let shortName = shortNameList[shortNameList.length - 1]
+                    if (typeNameList.indexOf(shortName) === -1) {
+                        typeNameList.push(shortName)
+                    }
                 }
-            }
-            let responses = apiInfo.responses
-            let responseClassName = ''
-            if (responses['200']) {
-                responseClassName = util.getResponseClassName(responses['200'].schema, this.definitions)
-                if (responseClassName === 'int' || responseClassName === 'integer' || responseClassName === 'string' || responseClassName === 'boolean') {
-                    continue
-                }
-                if (!this.definitions[responseClassName]) {
-                    console.log(`${responseClassName}`)
-                    continue
-                }
-                let shortNameList = responseClassName.split('.')
-                let shortName = shortNameList[shortNameList.length - 1]
-                if (typeNameList.indexOf(shortName) === -1) {
-                    typeNameList.push(shortName)
+                let responses = apiInfo.responses
+                let responseClassName = ''
+                if (responses['200']) {
+                    responseClassName = util.getResponseClassName(responses['200'].schema, this.definitions)
+                    if (responseClassName === 'int' || responseClassName === 'integer' || responseClassName === 'string' || responseClassName === 'boolean') {
+                        continue
+                    }
+                    if (!this.definitions[responseClassName]) {
+                        console.log(`${responseClassName}`)
+                        continue
+                    }
+                    let shortNameList = responseClassName.split('.')
+                    let shortName = shortNameList[shortNameList.length - 1]
+                    if (typeNameList.indexOf(shortName) === -1) {
+                        typeNameList.push(shortName)
+                    }
                 }
             }
         }
@@ -70,11 +72,13 @@ import {${typeNameList.join(',\n')}
             let functionName = util.firstLetterLowerCase(urlParts[urlParts.length - 1])
             this.exportFunctionList.push(functionName)
             let apiItem = this.paths[url]
-            let httpType = Object.getOwnPropertyNames(apiItem)[0]
-            if (apiItem[httpType].deprecated === true) {
-                continue
+            let httpTypes = Object.getOwnPropertyNames(apiItem)
+            for (let httpType of httpTypes) {
+                if (apiItem[httpType].deprecated === true) {
+                    continue
+                }
+                body += generateService(url, httpType, apiItem[httpType], this.definitions, httpTypes.length > 1)
             }
-            body += generateService(url, httpType, apiItem[httpType], this.definitions)
         }
         return body
     }

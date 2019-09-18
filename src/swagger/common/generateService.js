@@ -1,6 +1,6 @@
 let util = require('../util')
 
-module.exports = function (url, httpType, apiInfo, definitions) {
+module.exports = function (url, httpType, apiInfo, definitions, isFunctionNameRepeat) {
     let urlParts = url.split('/')
     let functionName = util.firstLetterLowerCase(urlParts[urlParts.length - 1])
     let parameters = apiInfo.parameters
@@ -58,7 +58,18 @@ module.exports = function (url, httpType, apiInfo, definitions) {
 
     if (functionName.indexOf('{') != -1) {
         functionName = functionName.replace('{', '').replace('}', '')
-        functionName = 'by' + functionName.replace(functionName[0], functionName[0].toUpperCase())
+    }
+    if (isFunctionNameRepeat) {
+        let functionNameWithUpLetter = functionName.replace(functionName[0], functionName[0].toUpperCase())
+        if (httpType == 'get') {
+            functionName = 'get' + functionNameWithUpLetter
+        } else if (httpType == 'post') {
+            functionName = 'add' + functionNameWithUpLetter
+        } else if (httpType == 'put') {
+            functionName = 'update' + functionNameWithUpLetter
+        } else if (httpType == 'delete') {
+            functionName = 'delete' + functionNameWithUpLetter
+        }
     }
     let restUrl = url.replace('{', '${')
 

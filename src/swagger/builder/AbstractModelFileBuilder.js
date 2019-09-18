@@ -25,29 +25,32 @@ class AbstractModelFileBuilder {
         let body = ''
         for (let url of this.apiUrls) {
             let apiItem = this.paths[url]
-            let httpType = Object.getOwnPropertyNames(apiItem)[0]
-            let apiInfo = apiItem[httpType]
-            if (apiInfo.deprecated === true) {
-                continue
-            }
+            let httpTypes = Object.getOwnPropertyNames(apiItem)
 
-            let responseClassName = util.getResponseClassName(apiInfo.responses['200'].schema, this.definitions)
-            let shortNameList = responseClassName.split('.')
-            let shortName = shortNameList[shortNameList.length - 1]
-            if (responseClassName && responseClassIgnoreList.indexOf(responseClassName) === -1 && this.modalClassList.indexOf(responseClassName) === -1) {
-                this.modalClassList.push(responseClassName)
-                body += this.generateModal(shortName, responseClassName, this.definitions[responseClassName], (modalName) => this.registerClass(modalName, this.registerModalClassList))
-            }
+            for (let httpType of httpTypes) {
+                let apiInfo = apiItem[httpType]
+                if (apiInfo.deprecated === true) {
+                    continue
+                }
 
-            let parameters = apiInfo.parameters
-            if (parameters && parameters.length === 1 && parameters[0].in === 'body') {
-                let param = parameters[0]
-
-                let requestClassName = util.getResponseClassName(param.schema, this.definitions)
-                let shortNameList = requestClassName.split('.')
+                let responseClassName = util.getResponseClassName(apiInfo.responses['200'].schema, this.definitions)
+                let shortNameList = responseClassName.split('.')
                 let shortName = shortNameList[shortNameList.length - 1]
-                this.modalClassList.push(responseClassName)
-                body += this.generateModal(shortName, requestClassName, this.definitions[requestClassName], (modalName) => this.registerClass(modalName, this.registerModalClassList))
+                if (responseClassName && responseClassIgnoreList.indexOf(responseClassName) === -1 && this.modalClassList.indexOf(responseClassName) === -1) {
+                    this.modalClassList.push(responseClassName)
+                    body += this.generateModal(shortName, responseClassName, this.definitions[responseClassName], (modalName) => this.registerClass(modalName, this.registerModalClassList))
+                }
+
+                let parameters = apiInfo.parameters
+                if (parameters && parameters.length === 1 && parameters[0].in === 'body') {
+                    let param = parameters[0]
+
+                    let requestClassName = util.getResponseClassName(param.schema, this.definitions)
+                    let shortNameList = requestClassName.split('.')
+                    let shortName = shortNameList[shortNameList.length - 1]
+                    this.modalClassList.push(responseClassName)
+                    body += this.generateModal(shortName, requestClassName, this.definitions[requestClassName], (modalName) => this.registerClass(modalName, this.registerModalClassList))
+                }
             }
 
         }
