@@ -6,6 +6,21 @@
 /**
  * 
  */
+export interface PeripheralVo {
+    dataPoints?: MeasureDataPoint[] // 
+description?: string // 
+linkInterfaces?: BaseLinkInterface[] // 
+model?: string // 
+name?: string // 
+parameters?: Parameter[] // 
+producer?: string // 
+type?: string // 
+
+}
+
+/**
+ * 
+ */
 export interface PeripheralModel {
     content?: string // 
 description?: string // 
@@ -13,5 +28,65 @@ name?: string //
 peripheralModelId?: number // 
 peripheralType?: string // 
 producer?: string // 
+
+}
+
+/**
+ * 
+ */
+export interface MeasureDataPoint {
+    changeExpression?: string // 
+dataPointAddress?: number // 
+dataType?: string // 
+dataUnit?: string // 
+description?: string // 
+discrete?: boolean // 
+event?: boolean // 
+expression?: string // 
+id?: number // 
+invTransExpression?: string // 
+lowerLimit?: number // 
+maxGradient?: number // 
+minGradient?: number // 
+name?: string // 
+protocol?: string // 
+realtime?: boolean // 
+soe?: boolean // 
+transExpression?: string // 
+upperLimit?: number // 
+writable?: boolean // 
+zeroExpression?: string // 
+
+}
+
+/**
+ * 
+ */
+export interface BaseLinkInterface {
+    name?: string // 
+protocolInfos?: ProtocolInfo[] // 
+
+}
+
+/**
+ * 
+ */
+export interface Parameter {
+    actualValue?: number // 
+defaultValue?: number // 
+description?: string // 
+effectiveValue?: number // 
+name?: string // 
+optional?: boolean // 
+
+}
+
+/**
+ * 
+ */
+export interface ProtocolInfo {
+    description?: string // 
+name?: string // 
+version?: string // 
 
 }

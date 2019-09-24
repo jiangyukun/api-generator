@@ -6,9 +6,17 @@
 import {_get, _post, _put, _delete} from '../core/http'
 import {Data, List} from '../interfaces/CommonInterface'
 import {ConfigFileModel,
-TempConfigFileModel
+TempConfigFileModel,
+FileVo
 } from './types/filesType'
         
+/**
+ * 查看本地所有配置文件(临时使用)
+ */
+export function fetchFilesListApi(): Promise<ConfigFileModel[]> {
+  return _get(`/files`)
+}
+
 /**
  * 新建本地配置文件
  */
@@ -27,13 +35,20 @@ export function updateFilesApi(model: ConfigFileModel): Promise<number> {
  * 自动保存本地配置文件
  */
 export function autosaveApi(model: TempConfigFileModel): Promise<number> {
-  return _put(`/files/autosave`, model)
+  return _post(`/files/autosave`, model)
+}
+
+/**
+ * 更新配置(临时使用)
+ */
+export function contentApi(params: {content: string}): Promise<number> {
+  return _get(`/files/content`, params)
 }
 
 /**
  * 查看本地配置文件内容
  */
-export function fetchFilesListApi(fileId: number): Promise<ConfigFileModel> {
+export function fetchFilesApi(fileId: number): Promise<FileVo> {
   return _get(`/files/${fileId}`, fileId)
 }
 

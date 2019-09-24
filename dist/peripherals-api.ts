@@ -5,19 +5,20 @@
 
 import {_get, _post, _put, _delete} from '../core/http'
 import {Data, List} from '../interfaces/CommonInterface'
-import {PeripheralModel
+import {PeripheralVo,
+PeripheralModel
 } from './types/peripheralsType'
         
 /**
  * 查看外设模型库列表
  */
-export function peripheralsApi(): Promise<PeripheralModel[]> {
+export function peripheralsApi(): Promise<PeripheralVo[]> {
   return _get(`/peripherals`)
 }
 
 /**
  * 查看外设模型库详细内容
  */
-export function peripheralsApi(peripheral_id: number): Promise<PeripheralModel> {
+export function fetchPeripheralsApi(peripheral_id: number): Promise<PeripheralModel> {
   return _get(`/peripherals/${peripheral_id}`, peripheral_id)
 }

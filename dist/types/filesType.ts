@@ -32,6 +32,19 @@ updateTime?: string //
 /**
  * 
  */
+export interface ConfigFileModel {
+    content?: string // 
+description?: string // 
+fileId?: number // 
+fileName?: string // 
+projectId?: number // 
+updateTime?: string // 
+
+}
+
+/**
+ * 
+ */
 export interface TempConfigFileModel {
     content?: string // 
 fileId?: number // 
@@ -43,12 +56,129 @@ updateTime?: string //
 /**
  * 
  */
-export interface ConfigFileModel {
-    content?: string // 
+export interface FileVo {
+    peripherals?: PeripheralConfig[] // 
+ports?: BasePort[] // 
+productModelId?: string // 
+strategies?: StrategyModel[] // 
+
+}
+
+/**
+ * 
+ */
+export interface PeripheralConfig {
+    name?: string // 
+peripheralModelId?: string // 
+peripheralPortData?: PeripheralPortData[] // 
+
+}
+
+/**
+ * 
+ */
+export interface BasePort {
+    localInterface?: string // 
+portId?: number // 
+portName?: string // 
+protocol?: string // 
+
+}
+
+/**
+ * 
+ */
+export interface StrategyModel {
+    description?: string // 
+inputs?: InputDataPoint[] // 
+name?: string // 
+outputs?: OutputDataPoint[] // 
+parameters?: BaseStrategyParameter // 
+peripherals?: any // 
+producer?: string // 
+strategyId?: string // 
+version?: string // 
+
+}
+
+/**
+ * 
+ */
+export interface PeripheralPortData {
+    address?: number // 
+dataPoints?: MeasureDataPoint[] // 
+portId?: number // 
+
+}
+
+/**
+ * 
+ */
+export interface InputDataPoint {
+    dataType?: string // 
+defaultDataName?: string // 
+defaultPeripheralType?: string // 
 description?: string // 
-fileId?: number // 
-fileName?: string // 
-projectId?: number // 
-updateTime?: string // 
+id?: number // 
+inputDataType?: string // 
+name?: string // 
+optional?: boolean // 
+targetDataName?: string // 
+
+}
+
+/**
+ * 
+ */
+export interface OutputDataPoint {
+    dataType?: string // 
+defaultDataName?: string // 
+defaultPeripheralType?: string // 
+description?: string // 
+id?: number // 
+inputDataType?: string // 
+intermediateResult?: boolean // 
+maxInterval?: number // 
+name?: string // 
+optional?: boolean // 
+targetDataName?: string // 
+updateThreshold?: number // 
+
+}
+
+/**
+ * 
+ */
+export interface BaseStrategyParameter {
+    executeEndTime?: string // 
+executeStartTime?: string // 
+
+}
+
+/**
+ * 
+ */
+export interface MeasureDataPoint {
+    changeExpression?: string // 
+dataPointAddress?: number // 
+dataType?: string // 
+dataUnit?: string // 
+description?: string // 
+discrete?: boolean // 
+event?: boolean // 
+expression?: string // 
+id?: number // 
+invTransExpression?: string // 
+lowerLimit?: number // 
+maxGradient?: number // 
+minGradient?: number // 
+name?: string // 
+protocol?: string // 
+realtime?: boolean // 
+soe?: boolean // 
+transExpression?: string // 
+upperLimit?: number // 
+writable?: boolean // 
+zeroExpression?: string // 
 
 }

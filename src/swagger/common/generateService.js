@@ -75,9 +75,15 @@ module.exports = function (url, httpType, apiInfo, definitions, isFunctionNameRe
             functionName = 'update' + functionNameWithUpLetter
         }
     }
-    if (httpType == 'delete') {
-        functionName = 'delete' + functionNameWithUpLetter
+    if (url.indexOf('{') != -1) {
+        if (httpType == 'delete') {
+            functionName = 'delete' + functionNameWithUpLetter
+        }
+        if (httpType == 'get') {
+            functionName = 'fetch' + functionNameWithUpLetter
+        }
     }
+
     let restUrl = url.replace('{', '${')
 
     let apiStr = `

@@ -8,7 +8,7 @@ let TypescriptInterfaceFileBuilder = require('./builder/TypescriptInterfaceFileB
 let util = require('./util')
 
 function generateCode(distPath) {
-    axios.get('http://localhost:8000/v2/api-docs').then(res => {
+    axios.get('http://192.168.2.21:8000/v2/api-docs').then(res => {
         let swaggerJson = res.data
         const paths = swaggerJson.paths
         const definitions = swaggerJson.definitions

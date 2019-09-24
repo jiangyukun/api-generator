@@ -33,7 +33,7 @@ export function updateProjectApi(model: ProjectModel): Promise<number> {
 /**
  * 查询项目结构
  */
-export function projectApi(name: string): Promise<ProjectConfigFileVo> {
+export function fetchProjectApi(name: string): Promise<ProjectConfigFileVo> {
   return _get(`/project/${name}`, name)
 }
 
