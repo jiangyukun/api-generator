@@ -5,7 +5,8 @@
 
 import {_get, _post, _put, _delete} from '../core/http'
 import {Data, List} from '../interfaces/CommonInterface'
-import {StrategyVo
+import {StrategyVo,
+StrategyModel
 } from './types/strategyType'
         
 /**
@@ -18,6 +19,6 @@ export function strategyApi(): Promise<StrategyVo[]> {
 /**
  * 查看控制策略内容详细
  */
-export function fetchStrategyApi(strategy_id: number): Promise<StrategyVo> {
+export function fetchStrategyApi(strategy_id: number): Promise<StrategyModel> {
   return _get(`/strategy/${strategy_id}`, strategy_id)
 }

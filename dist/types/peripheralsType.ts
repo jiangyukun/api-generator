@@ -7,14 +7,11 @@
  * 
  */
 export interface PeripheralVo {
-    dataPoints?: MeasureDataPoint[] // 
-description?: string // 
-linkInterfaces?: BaseLinkInterface[] // 
-model?: string // 
+    description?: string // 
+id?: number // 
 name?: string // 
-parameters?: Parameter[] // 
+peripheralType?: string // 
 producer?: string // 
-type?: string // 
 
 }
 
@@ -28,6 +25,21 @@ name?: string //
 peripheralModelId?: number // 
 peripheralType?: string // 
 producer?: string // 
+
+}
+
+/**
+ * 
+ */
+export interface Peripheral {
+    dataPoints?: MeasureDataPoint[] // 
+description?: string // 
+linkInterfaces?: BaseLinkInterface[] // 
+model?: string // 
+name?: string // 
+parameters?: Parameter[] // 
+producer?: string // 
+type?: string // 
 
 }
 
@@ -56,7 +68,7 @@ transExpression?: string //
 upperLimit?: number // 
 writable?: boolean // 
 zeroExpression?: string // 
-
+registerType?: number
 }
 
 /**
@@ -75,7 +87,6 @@ export interface Parameter {
     actualValue?: number // 
 defaultValue?: number // 
 description?: string // 
-effectiveValue?: number // 
 name?: string // 
 optional?: boolean // 
 

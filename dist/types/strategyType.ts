@@ -8,6 +8,18 @@
  */
 export interface StrategyVo {
     description?: string // 
+name?: string // 
+producer?: string // 
+strategyId?: number // 
+version?: string // 
+
+}
+
+/**
+ * 
+ */
+export interface StrategyModel {
+    description?: string // 
 inputs?: InputDataPoint[] // 
 name?: string // 
 outputs?: OutputDataPoint[] // 

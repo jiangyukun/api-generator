@@ -31,6 +31,11 @@ class InterfaceGenerator {
             return property.get(context) + '\n'
         }).join('')
 
+        //修复swagger无法显示父类中的private属性
+        if (context.interfaceName == 'MeasureDataPoint') {
+            propertyStr += 'registerType?: number // 寄存器类型'
+        }
+
         return `
 /**
  * ${this.description || ''}
