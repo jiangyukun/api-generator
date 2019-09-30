@@ -180,5 +180,5 @@ transExpression?: string //
 upperLimit?: number // 
 writable?: boolean // 
 zeroExpression?: string // 
-registerType?: number
+registerType?: number // 寄存器类型
 }

@@ -35,6 +35,14 @@ class InterfaceGenerator {
         if (context.interfaceName == 'MeasureDataPoint') {
             propertyStr += 'registerType?: number // 寄存器类型'
         }
+        if (context.interfaceName == 'BasePort') {
+            propertyStr += 'maxReadBitCount?: number //\n'
+            propertyStr += 'maxReadRegisterCount?: number //\n'
+            propertyStr += 'maxWriteRegisterCount?: number //\n'
+            propertyStr += 'requestPeriodInMillisecond?: number //\n'
+            propertyStr += 'serverIp?: string //\n'
+            propertyStr += 'serverPort?: number //\n'
+        }
 
         return `
 /**

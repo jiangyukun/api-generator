@@ -59,7 +59,6 @@ class NodeServiceFileBuilder {
  */
 
 import {_get, _post, _put, _delete} from '../core/http'
-import {Data, List} from '../interfaces/CommonInterface'
 import {${typeNameList.join(',\n')}
 } from '${this.interfacePath}'
         `
