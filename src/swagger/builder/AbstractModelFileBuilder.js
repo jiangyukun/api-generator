@@ -33,6 +33,7 @@ class AbstractModelFileBuilder {
                     continue
                 }
 
+                // 返回值
                 let responseClassName = util.getResponseClassName(apiInfo.responses['200'].schema, this.definitions)
                 let shortNameList = responseClassName.split('.')
                 let shortName = shortNameList[shortNameList.length - 1]
@@ -41,6 +42,7 @@ class AbstractModelFileBuilder {
                     body += this.generateModal(shortName, responseClassName, this.definitions[responseClassName], (modalName) => this.registerClass(modalName, this.registerModalClassList))
                 }
 
+                // 请求参数
                 let parameters = apiInfo.parameters
                 if (parameters && parameters.length === 1 && parameters[0].in === 'body') {
                     let param = parameters[0]
@@ -48,8 +50,10 @@ class AbstractModelFileBuilder {
                     let requestClassName = util.getResponseClassName(param.schema, this.definitions)
                     let shortNameList = requestClassName.split('.')
                     let shortName = shortNameList[shortNameList.length - 1]
-                    this.modalClassList.push(responseClassName)
-                    body += this.generateModal(shortName, requestClassName, this.definitions[requestClassName], (modalName) => this.registerClass(modalName, this.registerModalClassList))
+                    if (this.modalClassList.indexOf(requestClassName) === -1) {
+                        this.modalClassList.push(requestClassName)
+                        body += this.generateModal(shortName, requestClassName, this.definitions[requestClassName], (modalName) => this.registerClass(modalName, this.registerModalClassList))
+                    }
                 }
             }
 
@@ -60,7 +64,10 @@ class AbstractModelFileBuilder {
                 let shortNameList = modalClass.split('.')
                 let shortName = shortNameList[shortNameList.length - 1]
 
-                body += this.generateModal(shortName, modalClass, this.definitions[modalClass], (modalName) => this.registerClass(modalName, depList))
+                if (this.modalClassList.indexOf(modalClass) == -1) {
+                    this.modalClassList.push(modalClass)
+                    body += this.generateModal(shortName, modalClass, this.definitions[modalClass], (modalName) => this.registerClass(modalName, depList))
+                }
             })
             this.registerModalClassList = depList
         }

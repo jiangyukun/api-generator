@@ -48,4 +48,4 @@ function generateCode(distPath) {
 
 module.exports = generateCode
 
-generateCode('E:/WEB-Projects/scada/mgcc-config-view/src/api-ts')
+generateCode('D:/2019/Porjects/scada/mgcc-config-view/src/api-ts')

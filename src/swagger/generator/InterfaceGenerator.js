@@ -36,12 +36,17 @@ class InterfaceGenerator {
             propertyStr += 'registerType?: number // 寄存器类型'
         }
         if (context.interfaceName == 'BasePort') {
-            propertyStr += 'maxReadBitCount?: number //\n'
-            propertyStr += 'maxReadRegisterCount?: number //\n'
-            propertyStr += 'maxWriteRegisterCount?: number //\n'
-            propertyStr += 'requestPeriodInMillisecond?: number //\n'
             propertyStr += 'serverIp?: string //\n'
             propertyStr += 'serverPort?: number //\n'
+            propertyStr += 'iec104CommonAddress?: number //\n'
+            propertyStr += 'iec104CommonAddressFieldLength?: number //\n'
+            propertyStr += 'iec104CotFieldLength?: number //\n'
+            propertyStr += 'iec104IoaFieldLength?: number //\n'
+            propertyStr += 'iec104MaxIdleTime?: number //\n'
+            propertyStr += 'iec104MaxTimeNoAckReceived?: number //\n'
+            propertyStr += 'iec104MaxTimeNoAckSent?: number //\n'
+            propertyStr += 'iec104MaxUnconfirmedIPdusReceived?: number //\n'
+            propertyStr += 'iec104MmessageFragmentTimeout?: number //\n'
         }
 
         return `

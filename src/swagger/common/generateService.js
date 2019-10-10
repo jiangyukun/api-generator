@@ -57,7 +57,7 @@ module.exports = function (url, httpType, apiInfo, definitions, isFunctionNameRe
                     name: param.name,
                     type: util.getPathType(param.type)
                 })
-                requestParam.push(param.name)
+                // requestParam.push(param.name)
             }
         }
     }
