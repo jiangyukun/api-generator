@@ -48,6 +48,21 @@ class InterfaceGenerator {
             propertyStr += 'iec104MaxUnconfirmedIPdusReceived?: number //\n'
             propertyStr += 'iec104MmessageFragmentTimeout?: number //\n'
         }
+        if (context.interfaceName == 'BaseStrategyParameter') {
+            propertyStr += 'chargePower?: number //\n'
+            propertyStr += 'dischargePower?: number //\n'
+            propertyStr += 'maxPowerRate?: number //\n'
+            propertyStr += 'priceInfo?: any //\n'
+            propertyStr += 'ratedPower?: number //\n'
+            propertyStr += 'socLowerLimit?: number //\n'
+            propertyStr += 'socUpperLimit?: number //\n'
+            propertyStr += 'storedEnergyCapacity?: number //\n'
+
+        }
+        if (context.interfaceName == 'StrategyModel') {
+            propertyStr += 'strategyType?: string //\n'
+
+        }
 
         return `
 /**
