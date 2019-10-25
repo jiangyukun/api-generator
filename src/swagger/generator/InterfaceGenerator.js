@@ -33,7 +33,10 @@ class InterfaceGenerator {
 
         //修复swagger无法显示父类中的private属性
         if (context.interfaceName == 'MeasureDataPoint') {
-            propertyStr += 'registerType?: number // 寄存器类型'
+            propertyStr += 'registerType?: number // 寄存器类型\n'
+            propertyStr += 'pollingPeriod?: number // 周期\n'
+            propertyStr += 'shouldNewRequest?: boolean // 是否新开请求\n'
+            propertyStr += 'isAddrInverse?: boolean // 是否是高低位取反\n'
         }
         if (context.interfaceName == 'BasePort') {
             propertyStr += 'serverIp?: string //\n'
@@ -52,7 +55,7 @@ class InterfaceGenerator {
             propertyStr += 'chargePower?: number //\n'
             propertyStr += 'dischargePower?: number //\n'
             propertyStr += 'maxPowerRate?: number //\n'
-            propertyStr += 'priceInfo?: any //\n'
+            propertyStr += 'priceInfo?: PriceInfo //\n'
             propertyStr += 'ratedPower?: number //\n'
             propertyStr += 'socLowerLimit?: number //\n'
             propertyStr += 'socUpperLimit?: number //\n'

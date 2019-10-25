@@ -34,12 +34,13 @@ function generateCode(distPath) {
             let filterApiPaths = apiPaths.filter(options.filter)
 
             let director = new FileDirector()
+            let typeFileName = options.filename.replace(/^\w/, c => c.toUpperCase())
 
             let serviceFilePath = path.resolve(`${distPath}`, util.firstLetterLowerCase(options.filename) + '-api.ts')
-            director.build(new TsServiceFileBuilder(filterApiPaths, paths, definitions, `./types/${options.filename}Type`))
+            director.build(new TsServiceFileBuilder(filterApiPaths, paths, definitions, `./types/${typeFileName}Type`))
             director.write(serviceFilePath)
 
-            let tsFilePath = path.resolve(`${distPath}/types/`, options.filename + 'Type.ts')
+            let tsFilePath = path.resolve(`${distPath}/types/`, typeFileName + 'Type.ts')
             director.build(new TypescriptInterfaceFileBuilder(filterApiPaths, paths, definitions))
             director.write(tsFilePath)
         }

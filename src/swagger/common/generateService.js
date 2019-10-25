@@ -19,7 +19,9 @@ module.exports = function (url, httpType, apiInfo, definitions, isFunctionNameRe
         let shortNameList = responseClassName.split('.')
         responseShortClassName = shortNameList[shortNameList.length - 1]
 
-        if ($ref.indexOf('List«') != -1) {
+        if (!$ref) {
+            responseType = `Promise<null>`
+        } else if ($ref.indexOf('List«') != -1) {
             responseType = `Promise<${responseShortClassName}[]>`
         } else {
             if (responseClassName === 'integer') {
@@ -33,6 +35,7 @@ module.exports = function (url, httpType, apiInfo, definitions, isFunctionNameRe
 
     let functionParam = []
     let requestParam = []
+    let queryParamFlag = false
     if (parameters && parameters.length > 0) {
         for (let param of parameters) {
             if (param.in === 'body') {
@@ -46,11 +49,12 @@ module.exports = function (url, httpType, apiInfo, definitions, isFunctionNameRe
                 requestParam.push(param.name)
             }
             if (param.in === 'query') {
+                queryParamFlag = true
                 functionParam.push({
-                    name: 'params',
-                    type: `{${param.name}: ${param.type}}`
+                    name: param.name,
+                    type: param.type
                 })
-                requestParam.push('params')
+                requestParam.push(param.name)
             }
             if (param.in == 'path') {
                 functionParam.push({
@@ -60,6 +64,10 @@ module.exports = function (url, httpType, apiInfo, definitions, isFunctionNameRe
                 // requestParam.push(param.name)
             }
         }
+    }
+
+    if (queryParamFlag) {
+        requestParam = [`{${requestParam.join(', ')}}`]
     }
 
     if (functionName.indexOf('{') != -1) {
