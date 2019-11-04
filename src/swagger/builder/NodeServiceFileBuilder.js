@@ -27,7 +27,7 @@ class NodeServiceFileBuilder {
     }
 
     buildFooter() {
-        return `module.exports = {\n    ${this.exportFunctionList.join(',\n    ')}\n}`
+        return `module.exports = {\r\n    ${this.exportFunctionList.join(',\r\n    ')}\r\n}`
     }
 }
 

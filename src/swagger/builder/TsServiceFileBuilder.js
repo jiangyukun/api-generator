@@ -59,7 +59,7 @@ class NodeServiceFileBuilder {
  */
 
 import {_get, _post, _put, _delete} from '../core/http'
-import {${typeNameList.join(',\n')}
+import {${typeNameList.join(',\r\n')}
 } from '${this.interfacePath}'
         `
     }

@@ -28,42 +28,42 @@ class InterfaceGenerator {
 
     generate(context) {
         let propertyStr = this.typeList.map(property => {
-            return property.get(context) + '\n'
+            return property.get(context) + '\r\n'
         }).join('')
 
         //修复swagger无法显示父类中的private属性
         if (context.interfaceName == 'MeasureDataPoint') {
-            propertyStr += 'registerType?: number // 寄存器类型\n'
-            propertyStr += 'pollingPeriod?: number // 周期\n'
-            propertyStr += 'shouldNewRequest?: boolean // 是否新开请求\n'
-            propertyStr += 'isAddrInverse?: boolean // 是否是高低位取反\n'
+            propertyStr += 'registerType?: number // 寄存器类型\r\n'
+            propertyStr += 'pollingPeriod?: number // 周期\r\n'
+            propertyStr += 'shouldNewRequest?: boolean // 是否新开请求\r\n'
+            propertyStr += 'isAddrInverse?: boolean // 是否是高低位取反\r\n'
         }
         if (context.interfaceName == 'BasePort') {
-            propertyStr += 'serverIp?: string //\n'
-            propertyStr += 'serverPort?: number //\n'
-            propertyStr += 'iec104CommonAddress?: number //\n'
-            propertyStr += 'iec104CommonAddressFieldLength?: number //\n'
-            propertyStr += 'iec104CotFieldLength?: number //\n'
-            propertyStr += 'iec104IoaFieldLength?: number //\n'
-            propertyStr += 'iec104MaxIdleTime?: number //\n'
-            propertyStr += 'iec104MaxTimeNoAckReceived?: number //\n'
-            propertyStr += 'iec104MaxTimeNoAckSent?: number //\n'
-            propertyStr += 'iec104MaxUnconfirmedIPdusReceived?: number //\n'
-            propertyStr += 'iec104MmessageFragmentTimeout?: number //\n'
+            propertyStr += 'serverIp?: string //\r\n'
+            propertyStr += 'serverPort?: number //\r\n'
+            propertyStr += 'iec104CommonAddress?: number //\r\n'
+            propertyStr += 'iec104CommonAddressFieldLength?: number //\r\n'
+            propertyStr += 'iec104CotFieldLength?: number //\r\n'
+            propertyStr += 'iec104IoaFieldLength?: number //\r\n'
+            propertyStr += 'iec104MaxIdleTime?: number //\r\n'
+            propertyStr += 'iec104MaxTimeNoAckReceived?: number //\r\n'
+            propertyStr += 'iec104MaxTimeNoAckSent?: number //\r\n'
+            propertyStr += 'iec104MaxUnconfirmedIPdusReceived?: number //\r\n'
+            propertyStr += 'iec104MmessageFragmentTimeout?: number //\r\n'
         }
         if (context.interfaceName == 'BaseStrategyParameter') {
-            propertyStr += 'chargePower?: number //\n'
-            propertyStr += 'dischargePower?: number //\n'
-            propertyStr += 'maxPowerRate?: number //\n'
-            propertyStr += 'priceInfo?: PriceInfo //\n'
-            propertyStr += 'ratedPower?: number //\n'
-            propertyStr += 'socLowerLimit?: number //\n'
-            propertyStr += 'socUpperLimit?: number //\n'
-            propertyStr += 'storedEnergyCapacity?: number //\n'
+            propertyStr += 'chargePower?: number //\r\n'
+            propertyStr += 'dischargePower?: number //\r\n'
+            propertyStr += 'maxPowerRate?: number //\r\n'
+            propertyStr += 'priceInfo?: PriceInfo //\r\n'
+            propertyStr += 'ratedPower?: number //\r\n'
+            propertyStr += 'socLowerLimit?: number //\r\n'
+            propertyStr += 'socUpperLimit?: number //\r\n'
+            propertyStr += 'storedEnergyCapacity?: number //\r\n'
 
         }
         if (context.interfaceName == 'StrategyModel') {
-            propertyStr += 'strategyType?: string //\n'
+            propertyStr += 'strategyType?: string //\r\n'
 
         }
 

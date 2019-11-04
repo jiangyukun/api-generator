@@ -30,7 +30,7 @@ class ClassGenerator {
 
     generate(context) {
         let propertyStr = this.typeList.map(property => {
-            return property.get(context) + '\n'
+            return property.get(context) + '\r\n'
         }).join('')
 
         return `

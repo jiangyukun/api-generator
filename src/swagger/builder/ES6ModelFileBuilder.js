@@ -13,7 +13,7 @@ class ES6ModelFileBuilder extends AbstractModelFileBuilder {
     }
 
     buildFooter() {
-        return `module.exports = {\n    ${this.modalClassList.concat(this.registerModalClassList).join(',\n    ')}\n}`
+        return `module.exports = {\r\n    ${this.modalClassList.concat(this.registerModalClassList).join(',\n    ')}\n}`
     }
 }
 
