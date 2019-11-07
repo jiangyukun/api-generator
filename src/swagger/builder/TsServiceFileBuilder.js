@@ -38,6 +38,9 @@ class NodeServiceFileBuilder {
                 let responseClassName = ''
                 if (responses['200']) {
                     responseClassName = util.getResponseClassName(responses['200'].schema, this.definitions)
+                    if (responseClassName === 'any') {
+                        continue
+                    }
                     if (responseClassName === 'int' || responseClassName === 'integer' || responseClassName === 'string' || responseClassName === 'boolean') {
                         continue
                     }

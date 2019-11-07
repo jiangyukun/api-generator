@@ -28,7 +28,7 @@ function getResponseClassName(schema, definitions) {
         ref = schema.$ref
     }
     if (ref == '#/definitions/ResultObject«Map«string,object»»') {
-        return ''
+        return 'any'
     }
     let responseClassName = getClassName(ref)
 

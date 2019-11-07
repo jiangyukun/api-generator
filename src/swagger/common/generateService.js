@@ -21,6 +21,8 @@ module.exports = function (url, httpType, apiInfo, definitions, isFunctionNameRe
 
         if (!$ref) {
             responseType = `Promise<null>`
+        } else if (responseShortClassName == 'any') {
+            responseType = `Promise<any>`
         } else if ($ref.indexOf('List«') != -1) {
             responseType = `Promise<${responseShortClassName}[]>`
         } else {
